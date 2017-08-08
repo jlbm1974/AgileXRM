@@ -4,12 +4,11 @@ RUN powershell -Command Add-WindowsFeature Web-Server
 
 ADD ServiceMonitor.exe /ServiceMonitor.exe
 
-EXPOSE 80
+EXPOSE 81
 
 ENTRYPOINT ["C:\\ServiceMonitor.exe", "w3svc"]
 
 RUN mkdir C:\site
 
 RUN powershell -NoProfile -Command \
-    Import-module IISAdministration; \
-    New-IISSite -Name "AgileXRM" -PhysicalPath C:\site -BindingInformation "*:80:"
+    .\CreateAgileXRMWebSites.ps1
